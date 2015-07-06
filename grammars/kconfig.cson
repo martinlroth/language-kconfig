@@ -1,0 +1,333 @@
+'scopeName': 'source.kconfig'
+'name': 'Kconfig'
+'fileTypes': [
+  'Kconfig'
+  'Kconfig.name'
+]
+
+'patterns': [
+  { 'include': '#comment' }
+  { 'include': '#keyword_choice' }
+  { 'include': '#keyword_comment' }
+  { 'include': '#keyword_config' }
+  { 'include': '#keyword_default' }
+  { 'include': '#keyword_def_types' }
+  { 'include': '#keyword_depends_on' }
+  { 'include': '#keyword_help' }
+  { 'include': '#keyword_if_endif' }
+  { 'include': '#keyword_mainmenu' }
+  { 'include': '#keyword_menu' }
+  { 'include': '#keyword_prompt' }
+  { 'include': '#keyword_select' }
+  { 'include': '#keyword_source' }
+  { 'include': '#keyword_types' }
+]
+
+'repository':
+  'comment':
+    'begin': '(^[ \\t]+)?(?=#)'
+    'beginCaptures':
+      '1': 'name': 'punctuation.whitespace.comment.leading.kconfig'
+    'end': '(?!\\G)'
+    'patterns': [
+      {
+        'begin': '#'
+        'beginCaptures':
+          '0': 'name': 'punctuation.definition.comment.kconfig'
+        'end': '$'
+        'name': 'comment.line.number-sign.kconfig'
+      }
+    ]
+
+  'keyword_choice':
+    'patterns': [
+      {
+        'begin': '^[ \\t]*(choice)[ \\t]*([A-Za-z0-9_]*)';
+        'beginCaptures': {
+          '1': 'name': 'keyword.other.kconfig'
+          '2': 'name': 'variable.other.symbol.kconfig'
+        }
+        'patterns': [
+          { 'include': '#comment' }
+          { 'include': '#keyword_comment' }
+          { 'include': '#keyword_config' }
+          { 'include': '#keyword_default' }
+          { 'include': '#keyword_def_types' }
+          { 'include': '#keyword_depends_on' }
+          { 'include': '#keyword_help' }
+          { 'include': '#keyword_if_endif' }
+          { 'include': '#keyword_mainmenu' }
+          { 'include': '#keyword_menu' }
+          { 'include': '#keyword_prompt' }
+          { 'include': '#keyword_select' }
+          { 'include': '#keyword_source' }
+          { 'include': '#keyword_types' }
+        ]
+        'end': '^[ \\t]*(endchoice)'
+        'endCaptures': {
+          '1': 'name': 'keyword.other.kconfig'
+        }
+
+      }
+    ]
+
+  'keyword_comment':
+    'patterns': [
+      {
+        'begin': '^[ \\t]*(comment)[ \\t]*(.*)'
+        'beginCaptures': {
+          '1': 'name': 'keyword.other.kconfig'
+          '2': 'name': 'string.other.prompt.kconfig'
+        }
+        'patterns': [
+          { 'include': '#comment' }
+          { 'include': '#keyword_depends_on' }
+        ]
+        'end': '$'
+      }
+    ]
+
+  'keyword_config':
+    'patterns': [
+      {
+        'begin': '^[ \\t]*(config)[ \\t]+([A-Za-z0-9_]+)';
+        'beginCaptures': {
+          '1': 'name': 'keyword.other.kconfig'
+          '2': 'name': ' variable.other.symbol.kconfig'
+        }
+        'patterns': [
+          { 'include': '#comment' }
+        ]
+        'end': '$'
+      }
+    ]
+
+  'keyword_default':
+    'patterns': [
+      {
+        'begin': '^[ \\t]*(default)[ \\t]+(!*([A-Za-z0-9_]+|y|n|"[^"]*"))+';
+        'beginCaptures': {
+          '1': 'name': 'keyword.other.kconfig'
+          '2': 'name': 'support.other.expr.kconfig'
+        }
+        'patterns': [
+          { 'include': '#comment' }
+          { 'include': '#keyword_if' }
+        ]
+        'end': '$'
+      }
+    ]
+
+  'keyword_def_types':
+    'patterns': [
+      {
+        'begin': '^[ \\t]*(def_bool|def_tristate)[ \\t]+(!*([A-Za-z0-9_]+))';
+        'beginCaptures': {
+          '1': 'name': 'storage.type.kconfig'
+          '2': 'name': 'support.other.expr.kconfig'
+        }
+        'patterns': [
+          { 'include': '#comment' }
+          { 'include': '#keyword_if' }
+        ]
+        'end': '$'
+      }
+    ]
+
+  'keyword_depends_on':
+    'patterns': [
+      {
+        'begin': '^[ \\t]*(depends on)[ \\t]*(.*)';
+        'beginCaptures': {
+          '1': 'name': 'keyword.other.kconfig'
+          '2': 'name': 'support.other.expr.kconfig'
+        }
+        'patterns': [
+          { 'include': '#comment' }
+        ]
+        'end': '$'
+      }
+    ]
+
+  'keyword_help':
+    'patterns': [
+      {
+        'match': '^([ \\t]*)(help|---help---)';
+        'captures': {
+          '2': 'name': 'keyword.other.kconfig'
+        }
+      }
+    ]
+
+  'keyword_if':
+    'patterns': [
+      {
+        'match': '[ \\t]+(if)[ \\t]*(.*)';
+        'captures': {
+          '1': 'name': 'keyword.other.kconfig'
+          '2': 'name': 'support.other.expr.kconfig'
+        }
+      }
+    ]
+
+  'keyword_if_endif':
+    'patterns': [
+      {
+        'begin': '^[ \\t]*(if)[ \\t]+(.*)';
+        'beginCaptures': {
+          '1': 'name': 'keyword.other.kconfig'
+          '2': 'name': 'support.other.expr.kconfig'
+        }
+        'patterns': [
+          { 'include': '#comment' }
+          { 'include': '#keyword_choice' }
+          { 'include': '#keyword_comment' }
+          { 'include': '#keyword_config' }
+          { 'include': '#keyword_default' }
+          { 'include': '#keyword_def_types' }
+          { 'include': '#keyword_depends_on' }
+          { 'include': '#keyword_help' }
+          { 'include': '#keyword_if_endif' }
+          { 'include': '#keyword_mainmenu' }
+          { 'include': '#keyword_menu' }
+          { 'include': '#keyword_prompt' }
+          { 'include': '#keyword_select' }
+          { 'include': '#keyword_source' }
+          { 'include': '#keyword_types' }
+        ]
+        'end': '^[ \\t]*(endif)'
+        'endCaptures': {
+          '1': 'name': 'keyword.other.kconfig'
+        }
+      }
+    ]
+
+  'keyword_mainmenu':
+    'patterns': [
+      {
+        'match': '^[ \\t]*(mainmenu)[ \\t]*(.*)'
+        'captures': {
+          '1': 'name': 'keyword.other.kconfig'
+          '2': 'name': 'string.other.prompt.kconfig'
+        }
+      }
+    ]
+
+  'keyword_menu':
+    'patterns': [
+      {
+        'begin': '^[ \\t]*(menu)[ \\t]+("[^"]*")';
+        'beginCaptures': {
+          '1': 'name': 'keyword.other.kconfig'
+          '2': 'name': 'string.other.prompt.kconfig'
+        }
+        'patterns': [
+          { 'include': '#comment' }
+          { 'include': '#keyword_choice' }
+          { 'include': '#keyword_comment' }
+          { 'include': '#keyword_config' }
+          { 'include': '#keyword_default' }
+          { 'include': '#keyword_def_types' }
+          { 'include': '#keyword_depends_on' }
+          { 'include': '#keyword_help' }
+          { 'include': '#keyword_if_endif' }
+          { 'include': '#keyword_mainmenu' }
+          { 'include': '#keyword_menu' }
+          { 'include': '#keyword_prompt' }
+          { 'include': '#keyword_select' }
+          { 'include': '#keyword_source' }
+          { 'include': '#keyword_types' }
+        ]
+        'end': '^[ \\t]*(endmenu)'
+        'endCaptures': {
+          '1': 'name': 'keyword.other.kconfig'
+        }
+
+      }
+    ]
+
+  'keyword_optional':
+    'patterns': [
+      {
+        'match': '^[ \\t]*(optional)';
+        'captures': {
+          '1': 'name': 'keyword.other.kconfig'
+        }
+      }
+    ]
+
+  'keyword_prompt':
+    'patterns': [
+      {
+        'begin': '^[ \\t]*(prompt)[ \\t]+("[^"]*")';
+        'captures': {
+          '1': 'name': 'keyword.other.kconfig'
+          '2': 'name': 'string.other.prompt.kconfig'
+        }
+        'patterns': [
+          { 'include': '#comment' }
+          { 'include': '#keyword_if' }
+        ]
+        'end': '$'
+      }
+    ]
+
+  'keyword_range':
+    'patterns': [
+      {
+        'begin': '^[ \\t]*(range)[ \\t]+([A-Za-z0-9_])+[ \\t]+([A-Za-z0-9_])+';
+        'beginCaptures': {
+          '1': 'name': 'keyword.other.kconfig'
+          '2': 'name': 'variable.other.symbol.kconfig'
+          '3': 'name': 'variable.other.symbol.kconfig'
+        }
+        'patterns': [
+          { 'include': '#keyword_if' }
+        ]
+        'end': '$'
+      }
+    ]
+
+  'keyword_select':
+    'patterns': [
+      {
+        'begin': '^[ \\t]*(select)[ \\t]*(.*)';
+        'beginCaptures': {
+          '1': 'name': 'keyword.other.kconfig'
+          '2': 'name': 'variable.other.symbol.kconfig'
+        }
+        'patterns': [
+          { 'include': '#comment' }
+          { 'include': '#keyword_if' }
+        ]
+        'end': '$'
+      }
+    ]
+
+  'keyword_source':
+    'patterns': [
+      {
+        'match': '^[ \\t]*(source)[ \\t]*(.*)'
+        'captures': {
+          '1': 'name': 'keyword.other.kconfig'
+          '2': 'name': 'string.other.prompt.kconfig'
+        }
+      }
+    ]
+
+  'keyword_types':
+    'patterns': [
+      {
+        'begin': '^[ \\t]*(bool|hex|int|string|tristate)[ \\t]*("[^"]*")?';
+        'beginCaptures': {
+          '1': 'name': 'storage.type.kconfig'
+          '2': 'name': 'string.other.prompt.kconfig'
+        }
+        'patterns': [
+          { 'include': '#comment' }
+          { 'include': '#keyword_if' }
+        ]
+        'end': '$'
+      }
+    ]
+

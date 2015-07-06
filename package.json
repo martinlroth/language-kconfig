@@ -1,0 +1,14 @@
+{
+  "name": "language-kconfig",
+  "version": "0.1.0",
+  "description": "Kconfig language support for Atom",
+  "keywords": [
+    "language",
+    "grammar"
+  ],
+  "repository": "https://github.com/martinlroth/language-kconfig",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  }
+}
